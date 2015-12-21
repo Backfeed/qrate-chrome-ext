@@ -1,0 +1,24 @@
+{
+  "name": "qrate-chrome-ext",
+  "homepage": "https://github.com/Backfeed/qrate-chrome-ext",
+  "authors": [
+    "Adam Goldman <adamgoldman7@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "js/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "aws-sdk": "aws-sdk-js#~2.2.25"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "name": "Backfeed Qrate Chrome Extension",
+  "manifest_version": 2,
+  "version": "0.0.0",
+
+  "description": "Your lovely qrate companion!",
+
+  "content_scripts": [{
+    "matches": [ 
+      "http://*/*",
+      "https://*/*"
+    ],
+
+    "exclude_globs": [
+      "*.jpg","*.jpeg","*.gif","*.png","*.bmp","*.webp",
+      "*.css","*.swf","*.js","*.zip","*.rar","*.tar","*.tar.gz","*.tgz","*.tar.bz2","*.tbz2",
+      "*.doc","*.docx","*.ppt","*.pptx","*.xls","*.xlsx","*.pdf","*.xml","*.txt",
+      "*.mpg","*.mpeg","*.qt","*.mp4","*.m4v","*.m4a","*.mp3","*.ogv","*.ogm","*.ogg","*.oga","*.webm","*.wav",
+      "*.","*." 
+    ],
+
+    "css": ["dist/css/main.css"],
+
+    "js": [
+      "bower/jquery/dist/jquery.min.js",
+      "bower/aws-sdk/dist/aws-sdk.min.js",
+      "js/contentScript.js"
+    ],
+
+    "run_at": "document_end"
+  }],
+
+  "web_accessible_resources": [
+    "html/*.html"
+  ]
+
+}
