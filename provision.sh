@@ -7,9 +7,9 @@ sudo apt-get update -y
 sudo apt-get install -y nodejs git
 sudo apt-get install -y build-essential
 
-sudo npm install -g gulp
-sudo npm install -g bower
+sudo npm install --no-bin-links -g gulp
+sudo npm install --no-bin-links -g bower
 sudo chown -R `whoami` ~/.npm
 cd /vagrant
-npm install
+npm install --no-bin-links
 bower install -y
