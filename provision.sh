@@ -10,3 +10,6 @@ sudo apt-get install -y build-essential
 sudo npm install -g gulp
 sudo npm install -g bower
 sudo chown -R `whoami` ~/.npm
+cd /vagrant
+npm install
+bower install -y
