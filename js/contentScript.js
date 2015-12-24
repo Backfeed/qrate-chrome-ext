@@ -23,13 +23,13 @@
   init();
 
   function init() {
-    chrome.storage.sync.get('QR-currentUser', function(CurrentUser) {
+    chrome.storage.sync.get('QR-currentUser', function(data) {
+      var currentUser = data['QR-currentUser'];
+      console.log("currentUser", currentUser);
 
-      console.log("CurrentUser", CurrentUser);
-
-      if (CurrentUser && CurrentUser.passHash) {
+      if (currentUser && currentUser.correctHash) {
         console.log("user detected");
-        appendBubble();
+        appendUserBubble();
       } else {
         console.log("guest detected");
         appendGuestBubble();
@@ -38,7 +38,7 @@
     });
   }
 
-	function appendBubble() {
+	function appendUserBubble() {
     var url = chrome.extension.getURL('html/bubble.html');
     $.get(url, appendToBody);
   }
@@ -93,8 +93,10 @@
       if (err) {
         console.log("CB: login: err", err);
       } else {
-        var output = JSON.parse(data.Payload);
-        console.log("CB: login: output", output);
+        var currentUser = JSON.parse(data.Payload);
+        console.log("CB: login: currentUser", currentUser);
+        saveCurrentUserToLocalStorage(currentUser);
+        replaceGuestBubbleWithUserBubble();
       }
     });
 
@@ -119,6 +121,15 @@
 
   function appendToContainer(html) {
   	$('#QR-container').append(html);
+  }
+
+  function saveCurrentUserToLocalStorage(currentUser) {
+    chrome.storage.sync.set({ 'QR-currentUser': currentUser });
+  }
+
+  function replaceGuestBubbleWithUserBubble() {
+    $('#QR-guest-container').remove();
+    appendUserBubble();
   }
 
 }());
