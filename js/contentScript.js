@@ -67,7 +67,8 @@
       if (err) {
         console.log("CB: signup: err", err);
       } else {
-        console.log("CB: signup: data", data);
+        var output = JSON.parse(data.Payload);
+        console.log("CB: signup: data", output);
       }
     });
 
@@ -92,7 +93,8 @@
       if (err) {
         console.log("CB: login: err", err);
       } else {
-        console.log("CB: login: data", data);
+        var output = JSON.parse(data.Payload);
+        console.log("CB: login: output", output);
       }
     });
 
