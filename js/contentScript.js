@@ -2,49 +2,101 @@
 
 	console.log('CONTENT SCRIPT STARTS!');
 
+  AWS.config.region = 'us-east-1';
+
+  AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+    IdentityPoolId: 'us-east-1:b10673e0-1654-4519-9938-2d624de0532a'
+  });
+  
+  var lambda = new AWS.Lambda();
+
 	$(document).on('click', '#QR-bubble-menu-item-qrate-link', qrateLink);
 	
 	$(document).on('click', '#QR-bubble-menu-item-send-link', sendLink);
 	
-	$(document).on('click', '#QR-bubble-menu-item-inbox', inboxLink);
+  $(document).on('click', '#QR-bubble-menu-item-inbox', inboxLink);
 
-	appendBubble();
+  $(document).on('click', '#QR-signup-button', signup);
 
-  // Initialize the Amazon Cognito credentials provider
-  AWS.config.region = 'us-east-1'; // Region
-  AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-      IdentityPoolId: 'us-east-1:43163e60-6220-4872-935c-3c2457fe4ef8',
-  });
+	$(document).on('click', '#QR-login-button', login);
 
-  // Initialize the Cognito Sync client
+  init();
 
-  AWS.config.credentials.get(function(){
+  function init() {
+    chrome.storage.sync.get('QR-currentUser', function(CurrentUser) {
 
-     var syncClient = new AWS.CognitoSyncManager();
+      console.log("CurrentUser", CurrentUser);
 
-     syncClient.openOrCreateDataset('myDataset', function(err, dataset) {
+      if (CurrentUser && CurrentUser.passHash) {
+        console.log("user detected");
+        appendBubble();
+      } else {
+        console.log("guest detected");
+        appendGuestBubble();
+      }
 
-        dataset.put('myKey', 'myValue', function(err, record){
-
-           dataset.synchronize({
-
-              onSuccess: function(data, newRecords) {
-                console.log("data", data, "newRecords", newRecords);
-                  // Your handler code here
-              }
-
-           });
-
-        });
-       
-     });
-
-  });
+    });
+  }
 
 	function appendBubble() {
-		var url = chrome.extension.getURL('html/bubble.html');
+    var url = chrome.extension.getURL('html/bubble.html');
+    $.get(url, appendToBody);
+  }
+
+  function appendGuestBubble() {
+		var url = chrome.extension.getURL('html/guestBubble.html');
     $.get(url, appendToBody);
 	}
+
+  function signup() {
+
+    var email =  $('#QR-auth-email').val();
+    var password =  $('#QR-auth-password').val();
+
+    var signupInput = {
+      email:  email,
+      password:  password
+    };
+
+    console.log("signup: ", "email", email, "password", password);
+
+    lambda.invoke({
+      FunctionName: 'qratebackend-signup',
+      Payload: JSON.stringify(signupInput)
+    }, function(err, data) {
+      if (err) {
+        console.log("CB: signup: err", err);
+      } else {
+        console.log("CB: signup: data", data);
+      }
+    });
+
+  }
+
+  function login() {
+
+    var email =  $('#QR-auth-email').val();
+    var password =  $('#QR-auth-password').val();
+
+    var loginInput = {
+      email:  $('#QR-auth-email').val(),
+      password:  $('#QR-auth-password').val()
+    };
+
+    console.log("login: ", "email", email, "password", password);
+
+    lambda.invoke({
+      FunctionName: 'qratebackend-login',
+      Payload: JSON.stringify(loginInput)
+    }, function(err, data) {
+      if (err) {
+        console.log("CB: login: err", err);
+      } else {
+        console.log("CB: login: data", data);
+      }
+    });
+
+  }
 
   function qrateLink(e) {
     console.log(document.location.href);
@@ -56,7 +108,7 @@
   }
 
   function inboxLink(e) {
-  	
+    console.log('inbox clicked!');
   }
 
 	function appendToBody(html) {
