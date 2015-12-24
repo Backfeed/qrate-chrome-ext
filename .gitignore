@@ -2,3 +2,5 @@ node_modules
 bower
 dist
 .vagrant
+npm-debug.log*
+.idea/

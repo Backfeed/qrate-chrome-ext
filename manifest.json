@@ -24,7 +24,9 @@
     "js": [
       "bower/jquery/dist/jquery.min.js",
       "bower/aws-sdk/dist/aws-sdk.min.js",
-      "js/contentScript.js"
+      "bower/webcomponentsjs/webcomponents-lite.js",
+      "js/contentScript.js",
+      "js/floatingButton.js"
     ],
 
     "run_at": "document_end"
@@ -36,7 +38,7 @@
   ],
 
   "web_accessible_resources": [
-    "html/*.html"
+    "bower/**/*"
   ]
 
 }
