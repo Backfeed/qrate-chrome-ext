@@ -12,10 +12,6 @@
 
 	$(document).on('click', '#QR-bubble-menu-item-qrate-link', qrateLink);
 	
-	$(document).on('click', '#QR-bubble-menu-item-send-link', sendLink);
-	
-  $(document).on('click', '#QR-bubble-menu-item-inbox', inboxLink);
-
   $(document).on('click', '#QR-signup-button', signup);
 
 	$(document).on('click', '#QR-login-button', login);
@@ -103,16 +99,28 @@
   }
 
   function qrateLink(e) {
-    console.log(document.location.href);
-  }
+    var tag = prompt('tag your link');
 
-  function sendLink(e) {
-  	var url = chrome.extension.getURL('html/sendLink.html');
-    $.get(url, appendToContainer);
-  }
+    chrome.storage.sync.get('QR-currentUser', function(data) {
+      var currentUser = data['QR-currentUser'];
+      var input = {
+        tag: tag,
+        url: document.location.href,
+        submitterId: currentUser.uuid
+      };
+      lambda.invoke({
+        FunctionName: 'qratebackend-create',
+        Payload: JSON.stringify(input)
+      }, function(err, data) {
+        if (err) {
+          console.log("CB: submit link: err", err);
+        } else {
+          var data = JSON.parse(data.Payload);
+          console.log("CB: submit link", data);
+        }
+      });
+    });
 
-  function inboxLink(e) {
-    console.log('inbox clicked!');
   }
 
 	function appendToBody(html) {
