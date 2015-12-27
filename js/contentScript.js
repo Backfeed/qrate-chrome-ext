@@ -109,7 +109,7 @@
         submitterId: currentUser.uuid
       };
       lambda.invoke({
-        FunctionName: 'qratebackend-create',
+        FunctionName: 'qratebackend-createlink',
         Payload: JSON.stringify(input)
       }, function(err, data) {
         if (err) {
