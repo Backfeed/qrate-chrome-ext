@@ -103,19 +103,20 @@
     let lambda = new AWS.Lambda();
 
     class FloatingButton extends HTMLElement {
+
         // Fires when an instance of the element is created.
         createdCallback() {
-            this.createShadowRoot().innerHTML = template;
+            this.createShadowRoot().innerHTML = template ;
         };
 
         // Fires when an instance was inserted into the document.
         attachedCallback() {
-            let shadowRoot = this.shadowRoot;
-
-            $(shadowRoot).find('.QR-bubble').on('click', this.togglePopup);
-            $(shadowRoot).find('#QR-signup-button').on('click', this.signup);
-            $(shadowRoot).find('#QR-login-button').on('click', this.login);
-            $(shadowRoot).find('#QR-bubble-menu-item-qrate-link').on('click', this.qrateLink);
+            let shadowRoot = $(this.shadowRoot);
+            this.bubble = shadowRoot.find('.QR-bubble');
+            this.bubble.on('click', this.togglePopup);
+            shadowRoot.find('#QR-signup-button').on('click', this.signup);
+            shadowRoot.find('#QR-login-button').on('click', this.login);
+            shadowRoot.find('#QR-bubble-menu-item-qrate-link').on('click', this.qrateLink);
         };
 
         // Fires when an attribute was added, removed, or updated.

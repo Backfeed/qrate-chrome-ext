@@ -10,7 +10,7 @@
 
   let init = () => {
     $('<qrate-floating-button />').appendTo(document.body);
-  }
+  };
 
   init();
 
