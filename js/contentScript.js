@@ -9,6 +9,8 @@
   });
 
   let init = () => {
+    $('<link id="floating-button-import" rel="import" href="' + chrome.extension.getURL("components/floatingButton/floatingButton.html") + '" />').appendTo(document.head);
+
     $('<qrate-floating-button />').appendTo(document.body);
   };
 

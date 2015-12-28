@@ -3,7 +3,7 @@
   "manifest_version": 2,
   "version": "0.0.0",
 
-  "description": "Your lovely qrate companion!",
+  "description": "Your lovely Qrate companion!",
 
   "content_scripts": [{
     "matches": [ 
@@ -26,7 +26,7 @@
       "bower/aws-sdk/dist/aws-sdk.min.js",
       "bower/webcomponentsjs/webcomponents-lite.js",
       "js/contentScript.js",
-      "js/floatingButton.js"
+      "components/floatingButton/floatingButton.js"
     ],
 
     "run_at": "document_end"
@@ -38,7 +38,8 @@
   ],
 
   "web_accessible_resources": [
-    "bower/**/*"
+    "bower/**/*",
+    "components/**/*"
   ]
 
 }
