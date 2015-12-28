@@ -1,53 +1,125 @@
-.QR-container {
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300,700);
+
+#QRATE-container {
+  font-family: 'Lato', sans-serif;
   position: fixed;
-  bottom: 50px; 
-  right: 20px;
-  z-index: 2147483647;
+  bottom: 50px;
+  right: 40px;
+  z-index: 1;
+
+  &:hover .bubble-label {
+    display: block;
+  }
+
+  .is--logged-in,
+  .is--guest {
+    display: none;
+  }
+
+  .bubble {
+    position: relative;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    text-align: center;
+    box-shadow: 0 -1px 1px 0 rgba(255,255,255,0.75) inset, 0 2px 4px 0 rgba(99, 99, 99, 0.57);
+    border: 0;
+    background-color: #4285f8;
+    cursor: pointer;
+  }
+
+  .bubble-label {
+    border: 2px solid rgba(66, 133, 248, 0.7);
+    background-color: white;
+    position: absolute;
+    width: 160px;
+    right: 50%;
+    top: 10px;
+    color: #8ab0f1;
+    font-size: 13px;
+    height: 30px;
+    line-height: 27px;
+    border-radius: 15px;
+    padding-right: 25px;
+    z-index: -1;
+  }
+
+  .popup.is--logged-in {
+    position: absolute;
+    bottom: 70px;
+    right: -15px;
+  }
+
+  .popup-inner {
+    position: relative;
+    background-color: #f8f8f8;
+    padding: 28px 22px;
+    border-radius: 23px;
+    border: 2px solid rgba(66, 133, 248, 0.7);
+
+    &:before,
+    &:after {
+      content: "";
+      position: absolute;
+      border-style: solid;
+      display: block;
+      width: 0;
+    }
+
+    &:before {
+      bottom: -14px;
+      right: 25px;
+      border-width: 14px 13px 0;
+      border-color: rgba(66, 133, 248, 0.7) transparent;
+    }
+
+    &:after {
+      bottom: -12px;
+      right: 27px;
+      border-width: 13px 11px 0;
+      border-color: #f8f8f8 transparent;
+    }
+
+    h2 {
+      margin: 0;
+      color: #afafaf;
+      font-size: 16px;
+      font-weight: normal;
+    }
+
+    form {
+      margin-top: 35px;
+    }
+
+    .input-container {
+      margin-bottom: 19px;
+    }
+
+    label {
+      color: #6e6e6e;
+      font-size: 14px;
+    }
+
+    input {
+      height: 29px;
+      width: 256px;
+      margin-top: 6px;
+      border: 1px solid #e1e1e1;
+      box-shadow: 0 1px 4px 0 rgba(0,0,0,0.1) inset;
+    }
+  }
+
+  .bubble-menu-item {
+    text-align: center;
+    float: right;
+    height: 50px;
+    min-width: 50px;
+    border-radius: 50%;
+    border: 1px solid #eee;
+    background: red;
+  }
+
+  .text-center {
+    text-align: center;
+  }
 }
-
-.QR-bubble {
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-  border: 1px solid #eee;
-  background: red;
-  text-align: center;
-}
-
-.QR-bubble-menu {
-  display: none;
-}
-
-.QR-bubble-auth-container {
-  display: none;
-  background: red;
-  border: 1px solid #000;
-  padding: 20px;
-}
-
-.QR-container:hover {
-  .QR-bubble { display: none; } 
-  .QR-bubble-menu { display: block; }
-  .QR-bubble-auth-container { display: block; }
-} 
-
-.QR-bubble-menu-item {
-  text-align: center;
-  float: right;
-  height: 50px;
-  min-width: 50px;
-  border-radius: 50%;
-  border: 1px solid #eee;
-  background: red;
-}
-
-.QR-sendit-container {
-  position: absolute;
-  z-index: 2147483647;
-  bottom: 70px;
-  right: 0;
-  height: 200px;
-  width: 200px;
-  background: red;
-  border: 1px solid #000;
-}  

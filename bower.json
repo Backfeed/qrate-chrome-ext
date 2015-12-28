@@ -19,6 +19,7 @@
   ],
   "dependencies": {
     "jquery": "~2.1.4",
-    "aws-sdk": "aws-sdk-js#~2.2.25"
+    "aws-sdk": "aws-sdk-js#~2.2.25",
+    "webcomponentsjs": "~0.7.20"
   }
 }

@@ -33,7 +33,7 @@ gulp.task('clean', function(cb) {
 gulp.task('watch', function() {
   livereload.listen();
   gulp.watch('less/**/*.less', ['reload-extension', 'style', 'reload-tab']);
-  gulp.watch('js/contentScript.js', ['reload-extension']);
+  //gulp.watch('js/contentScript.js', ['reload-extension']);
 });
 
 gulp.task('build', ['clean', 'less'], function() {
